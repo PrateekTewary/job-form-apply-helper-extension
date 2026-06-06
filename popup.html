@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Autofill</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 280px;
+      padding: 12px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h3>Profile Info</h3>
+
+  <input id="fullName" placeholder="Full Name" />
+  <input id="email" placeholder="Email" />
+  <input id="phone" placeholder="Phone" />
+  <input id="linkedin" placeholder="LinkedIn URL" />
+  <input id="github" placeholder="GitHub URL" />
+  <input id="portfolio" placeholder="Portfolio URL" />
+  <textarea id="summary" placeholder="Short Summary"></textarea>
+
+  <button id="saveBtn">Save</button>
+  <button id="fillBtn">Autofill Current Page</button>
+
+  <p id="status"></p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
