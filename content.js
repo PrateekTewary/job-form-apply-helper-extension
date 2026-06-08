@@ -53,15 +53,38 @@ async function autofillJobForm() {
 
 	console.log("Autofill script running in:", window.location.href);
   console.log("First name field:", document.querySelector("#first_name"));
-  const profile = await chrome.storage.local.get(Object.keys(FIELD_MAPPINGS));
+  const profile = await chrome.storage.local.get([
+		...Object.keys(FIELD_MAPPINGS),
+		"workAuthorization",
+    "needsSponsorship",
+    "workedAtCompanyBefore"
+	]);
 
   const inputs = document.querySelectorAll("input, textarea");
 
   inputs.forEach((input) => {
-    const fieldText = getFieldText(input);
-
-    if (!fieldText) return;
 		if (shouldSkipInput(input)) return;
+
+    const fieldText = getFieldText(input);
+    if (!fieldText) return;
+
+    console.log("Detected field:", fieldText);
+
+    // checkboxes/radios handled separately
+    if (input.type === "checkbox" || input.type === "radio") {
+      handleCheckboxOrRadio(input, fieldText, profile);
+      return;
+    }
+
+		if (input.classList.contains("select__input")) {
+			const matchedProfileKey = findMatchingProfileKey(fieldText);
+
+			if (matchedProfileKey && profile[matchedProfileKey]) {
+				setReactSelectValue(input, profile[matchedProfileKey]);
+			}
+
+			return;
+		}
 
     const matchedProfileKey = findMatchingProfileKey(fieldText);
 
@@ -77,14 +100,18 @@ function getFieldText(input) {
   if (input.name) parts.push(input.name);
   if (input.id) parts.push(input.id);
   if (input.placeholder) parts.push(input.placeholder);
-  if (input.getAttribute("aria-label")) {
-    parts.push(input.getAttribute("aria-label"));
-  }
+  if (input.autocomplete) parts.push(input.autocomplete);
+
+  const ariaLabel = input.getAttribute("aria-label");
+  if (ariaLabel) parts.push(ariaLabel);
 
   const label = findLabel(input);
   if (label) parts.push(label.innerText);
 
-  return parts.join(" ").toLowerCase();
+  const containerText = input.closest("div, fieldset, label")?.innerText;
+  if (containerText) parts.push(containerText);
+
+  return parts.join(" ").replace(/\s+/g, " ").toLowerCase();
 }
 
 function findLabel(input) {
@@ -139,4 +166,23 @@ function shouldSkipInput(input) {
   if (input.offsetParent === null && input.type !== "checkbox" && input.type !== "radio") return true;
 
   return false;
+}
+
+function setReactSelectValue(input, value) {
+  input.focus();
+  input.click();
+
+  input.value = value;
+
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+
+  setTimeout(() => {
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Enter",
+        code: "Enter",
+        bubbles: true
+      })
+    );
+  }, 300);
 }
