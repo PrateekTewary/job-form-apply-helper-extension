@@ -48,6 +48,9 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 async function autofillJobForm() {
+
+	console.log("Autofill script running in:", window.location.href);
+  console.log("First name field:", document.querySelector("#first_name"));
   const profile = await chrome.storage.local.get(Object.keys(FIELD_MAPPINGS));
 
   const inputs = document.querySelectorAll("input, textarea");
