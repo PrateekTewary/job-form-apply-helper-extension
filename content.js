@@ -1,5 +1,7 @@
 const FIELD_MAPPINGS = {
-  fullName: [
+	firstName: ["first name", "first_name", "given-name"],
+	lastName: ["last name", "last_name", "family-name"],
+	fullName: [
     "full name",
     "fullname",
     "name",
