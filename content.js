@@ -61,6 +61,7 @@ async function autofillJobForm() {
     const fieldText = getFieldText(input);
 
     if (!fieldText) return;
+		if (shouldSkipInput(input)) return;
 
     const matchedProfileKey = findMatchingProfileKey(fieldText);
 
@@ -126,4 +127,16 @@ function setInputValue(input, value) {
   input.dispatchEvent(new Event("change", { bubbles: true }));
 
   input.blur();
+}
+
+function shouldSkipInput(input) {
+  if (input.type === "hidden") return true;
+  if (input.type === "file") return true;
+  if (input.id?.includes("g-recaptcha")) return true;
+  if (input.name?.includes("g-recaptcha")) return true;
+  if (input.id?.includes("__search-input")) return true;
+  if (input.classList.contains("visually-hidden")) return true;
+  if (input.offsetParent === null && input.type !== "checkbox" && input.type !== "radio") return true;
+
+  return false;
 }
