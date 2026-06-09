@@ -186,3 +186,15 @@ function setReactSelectValue(input, value) {
     );
   }, 300);
 }
+
+function handleCheckboxOrRadio(input, fieldText, profile) {
+  const text = fieldText.toLowerCase();
+
+  if (text.includes("none of the above")) {
+    clickInput(input);
+  }
+
+  if (text.includes("not applicable")) {
+    clickInput(input);
+  }
+}
