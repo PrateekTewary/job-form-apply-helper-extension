@@ -198,3 +198,11 @@ function handleCheckboxOrRadio(input, fieldText, profile) {
     clickInput(input);
   }
 }
+
+function clickInput(input) {
+  if (!input.checked) {
+    input.click();
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+}
