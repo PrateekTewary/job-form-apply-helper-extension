@@ -1,12 +1,19 @@
 const fields = [
+  "firstName",
+  "lastName",
   "fullName",
   "email",
   "phone",
+  "country",
+  "location",
   "linkedin",
   "github",
   "portfolio",
-  "summary"
- ];
+  "summary",
+  "workAuthorization",
+  "needsSponsorship",
+  "workedAtCompanyBefore"
+];
 
 document.addEventListener("DOMContentLoaded", async () => {
   const savedData = await chrome.storage.local.get(fields);
