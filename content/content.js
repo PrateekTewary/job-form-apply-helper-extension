@@ -1,54 +1,22 @@
-const FIELD_MAPPINGS = {
-	firstName: ["first name", "first_name", "given-name"],
-	lastName: ["last name", "last_name", "family-name"],
-	fullName: [
-    "full name",
-    "fullname",
-    "name",
-    "candidate name",
-    "applicant name"
-  ],
-  email: [
-    "email",
-    "email address",
-    "e-mail"
-  ],
-  phone: [
-    "phone",
-    "mobile",
-    "contact number",
-    "phone number"
-  ],
-  linkedin: [
-    "linkedin",
-    "linkedin url",
-    "linkedin profile"
-  ],
-  github: [
-    "github",
-    "github url",
-    "github profile"
-  ],
-  portfolio: [
-    "portfolio",
-    "website",
-    "personal website",
-    "portfolio url"
-  ],
-  summary: [
-    "summary",
-    "cover letter",
-    "about you",
-    "brief introduction"
-  ]
-};
+import { getProfile } from "../core/storage.js";
+import { getAdapter } from "../adapters/adapterRegistry.js";
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "AUTOFILL_JOB_FORM") {
-    autofillJobForm();
+    runAutofill();
   }
 });
 
+async function runAutofill() {
+  const profile = await chrome.storage.local.get([...Object.keys(FIELD_MAPPINGS)]);
+  const adapter = getAdapter(window.location.href);
+
+  console.log("Using adapter:", adapter.name);
+
+  adapter.fill(profile);
+}
+
+/*
 async function autofillJobForm() {
 
 	console.log("Autofill script running in:", window.location.href);
@@ -206,3 +174,4 @@ function clickInput(input) {
     input.dispatchEvent(new Event("change", { bubbles: true }));
   }
 }
+  */
