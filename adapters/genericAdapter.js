@@ -1,9 +1,4 @@
-import { FIELD_MAPPINGS } from "../config/fieldMappings.js";
-import { getFieldText } from "../core/fieldText.js";
-import { findMatchingProfileKey } from "../core/matcher.js";
-import { setInputValue, shouldSkipInput } from "../core/inputUtils.js";
-
-export const genericAdapter = {
+const genericAdapter = {
   name: "Generic",
 
   fill(profile) {

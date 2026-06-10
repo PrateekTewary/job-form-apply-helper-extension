@@ -1,4 +1,4 @@
-import { getProfile } from "../core/storage.js";
+// import { getProfile } from "../core/storage.js";
 import { getAdapter } from "../adapters/adapterRegistry.js";
 
 chrome.runtime.onMessage.addListener((message) => {

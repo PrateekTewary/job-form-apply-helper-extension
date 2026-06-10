@@ -1,5 +1,5 @@
 //handles - input text, textarea, select, checkbox, radio, number, email, tel, etc.
-export function setInputValue(element, value) {
+function setInputValue(element, value) {
   if (!element || value === undefined || value === null) return false;
 
   const tag = element.tagName.toLowerCase();
@@ -116,7 +116,7 @@ function getTextNearElement(element) {
   return labelText.toLowerCase().trim();
 }
 
-export function shouldSkipInput(input) {
+function shouldSkipInput(input) {
   if (!input) return true;
   if (input.type === "hidden") return true;
   if (input.type === "file") return true;
@@ -128,7 +128,7 @@ export function shouldSkipInput(input) {
   return false;
 }
 
-export function setReactSelectValue(input, value) {
+function setReactSelectValue(input, value) {
   if (!input || !value) return;
 
   input.focus();

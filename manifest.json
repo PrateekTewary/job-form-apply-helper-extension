@@ -8,15 +8,21 @@
     "https://job-boards.greenhouse.io/*"
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_title": "Job Autofill"
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://job-boards.greenhouse.io/*"
+      "matches": ["<all_urls>"],
+      "js": [
+        "config/fieldMappings.js",
+        "core/inputUtils.js",
+        "adapters/databricks.js",
+        "adapters/genericAdapter.js",
+        "adapters/adapterRegistry.js",
+        "core/storage.js",
+        "content/content.js"
       ],
-      "js": ["content.js"],
       "run_at": "document_idle",
       "all_frames": true
     }

@@ -1,4 +1,4 @@
-export const FIELD_MAPPINGS = {
+const FIELD_MAPPINGS = {
 	firstName: ["first name", "first_name", "given-name"],
 	lastName: ["last name", "last_name", "family-name"],
 	fullName: [

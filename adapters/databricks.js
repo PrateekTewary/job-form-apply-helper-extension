@@ -1,6 +1,4 @@
-import { setInputValue, setReactSelectValue, clickCheckboxByText } from "../core/inputUtils.js";
-
-export const dataBricksAdapter = {
+const dataBricksAdapter = {
   name: "dataBricks",
 
   fill(profile) {
