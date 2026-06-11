@@ -5,14 +5,14 @@ const genericAdapter = {
     const inputs = document.querySelectorAll("input, textarea");
 
     inputs.forEach((input) => {
-      if (shouldSkipInput(input)) return;
+      // if (shouldSkipInput(input)) return;
 
-      const fieldText = getFieldText(input);
-      const profileKey = findMatchingProfileKey(fieldText, FIELD_MAPPINGS);
+      // const fieldText = getFieldText(input);
+      // const profileKey = findMatchingProfileKey(fieldText, FIELD_MAPPINGS);
 
-      if (profileKey && profile[profileKey]) {
-        setInputValue(input, profile[profileKey]);
-      }
+      // if (profileKey && profile[profileKey]) {
+      //   setInputValue(input, profile[profileKey]);
+      // }
     });
   }
 };

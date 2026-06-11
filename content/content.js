@@ -1,6 +1,3 @@
-// import { getProfile } from "../core/storage.js";
-import { getAdapter } from "../adapters/adapterRegistry.js";
-
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "AUTOFILL_JOB_FORM") {
     runAutofill();
